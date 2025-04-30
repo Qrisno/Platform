@@ -1,0 +1,15 @@
+/Users/ninikristesiashvili/Desktop/code/Platform/Platform.Application/bin/Debug/net9.0/Platform.Application.deps.json
+/Users/ninikristesiashvili/Desktop/code/Platform/Platform.Application/bin/Debug/net9.0/Platform.Application.dll
+/Users/ninikristesiashvili/Desktop/code/Platform/Platform.Application/bin/Debug/net9.0/Platform.Application.pdb
+/Users/ninikristesiashvili/Desktop/code/Platform/Platform.Application/bin/Debug/net9.0/Platform.Domain.dll
+/Users/ninikristesiashvili/Desktop/code/Platform/Platform.Application/bin/Debug/net9.0/Platform.Domain.pdb
+/Users/ninikristesiashvili/Desktop/code/Platform/Platform.Application/obj/Debug/net9.0/Platform.Application.csproj.AssemblyReference.cache
+/Users/ninikristesiashvili/Desktop/code/Platform/Platform.Application/obj/Debug/net9.0/Platform.Application.GeneratedMSBuildEditorConfig.editorconfig
+/Users/ninikristesiashvili/Desktop/code/Platform/Platform.Application/obj/Debug/net9.0/Platform.Application.AssemblyInfoInputs.cache
+/Users/ninikristesiashvili/Desktop/code/Platform/Platform.Application/obj/Debug/net9.0/Platform.Application.AssemblyInfo.cs
+/Users/ninikristesiashvili/Desktop/code/Platform/Platform.Application/obj/Debug/net9.0/Platform.Application.csproj.CoreCompileInputs.cache
+/Users/ninikristesiashvili/Desktop/code/Platform/Platform.Application/obj/Debug/net9.0/Platform.54CC008C.Up2Date
+/Users/ninikristesiashvili/Desktop/code/Platform/Platform.Application/obj/Debug/net9.0/Platform.Application.dll
+/Users/ninikristesiashvili/Desktop/code/Platform/Platform.Application/obj/Debug/net9.0/refint/Platform.Application.dll
+/Users/ninikristesiashvili/Desktop/code/Platform/Platform.Application/obj/Debug/net9.0/Platform.Application.pdb
+/Users/ninikristesiashvili/Desktop/code/Platform/Platform.Application/obj/Debug/net9.0/ref/Platform.Application.dll
