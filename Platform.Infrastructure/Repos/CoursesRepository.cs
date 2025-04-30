@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Platform.Application.DTOs;
 using Platform.Application.Enums;
 using Platform.Application.Models;
 using Platform.Application.Repos;
@@ -67,8 +68,45 @@ public class CoursesRepository : ICoursesRepository
         };
     }
 
-    public async Task<CourseResponse> AddCourse()
+    public async Task<CourseResponse> AddCourse(AddCourseDTO courseData)
     {
+        var userFound = await _dbContext.Users.FindAsync(courseData.AuthorId);
+
+        // aq amis checki sachiroa?
+        if (userFound == null)
+        {
+            return new CourseResponse
+            {
+                result = CourseSearchResultEnum.UserNotFound
+            };
+        }
+
+        if (userFound.UserType != (int)UserTypeEnum.Teacher)
+        {
+            return new CourseResponse
+            {
+                result = CourseSearchResultEnum.UserNotAuthorized
+            };
+        }
+
+        var course = new Course
+        {
+            AuthorUserId = courseData.AuthorId,
+            CourseDescription = courseData.CourseDescription,
+            CourseTitle = courseData.CourseTitle
+        };
+        //es kursi bazidanr ogor unda wamovigo ver vxvdebi
+        await _dbContext.Courses.AddAsync(course);
+
+        await _dbContext.SaveChangesAsync();
+
+
+
+        return new CourseResponse
+        {
+            course = course,
+            result = CourseSearchResultEnum.Success
+        };
 
     }
 }
