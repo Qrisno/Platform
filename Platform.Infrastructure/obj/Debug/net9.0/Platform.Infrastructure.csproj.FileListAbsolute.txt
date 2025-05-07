@@ -17,3 +17,4 @@
 /Users/ninikristesiashvili/Desktop/code/Platform/Platform.Infrastructure/obj/Debug/net9.0/Platform.Infrastructure.pdb
 /Users/ninikristesiashvili/Desktop/code/Platform/Platform.Infrastructure/obj/Debug/net9.0/Platform.Infrastructure.genruntimeconfig.cache
 /Users/ninikristesiashvili/Desktop/code/Platform/Platform.Infrastructure/obj/Debug/net9.0/ref/Platform.Infrastructure.dll
+/Users/ninikristesiashvili/Desktop/code/Platform/Platform.Infrastructure/obj/Debug/net9.0/Platform.Infrastructure.sourcelink.json

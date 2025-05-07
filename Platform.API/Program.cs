@@ -1,9 +1,11 @@
 using Microsoft.EntityFrameworkCore;
+using Platform.Application.Models;
 using Platform.Application.Repos;
 using Platform.Application.Services;
 
 using Platform.Infrastructure;
 using Platform.Infrastructure.Helpers;
+using Platform.Infrastructure.Repos;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -18,9 +20,11 @@ builder.Services.AddDbContext<PlatformDbContext>(optionsBuilder =>
 });
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<CourseService>();
 builder.Services.AddScoped<AuthHelper>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+builder.Services.AddScoped<ICoursesRepository, CoursesRepository>();
 
 var app = builder.Build();
 

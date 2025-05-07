@@ -13,3 +13,4 @@
 /Users/ninikristesiashvili/Desktop/code/Platform/Platform.Application/obj/Debug/net9.0/refint/Platform.Application.dll
 /Users/ninikristesiashvili/Desktop/code/Platform/Platform.Application/obj/Debug/net9.0/Platform.Application.pdb
 /Users/ninikristesiashvili/Desktop/code/Platform/Platform.Application/obj/Debug/net9.0/ref/Platform.Application.dll
+/Users/ninikristesiashvili/Desktop/code/Platform/Platform.Application/obj/Debug/net9.0/Platform.Application.sourcelink.json

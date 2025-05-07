@@ -9,3 +9,4 @@
 /Users/ninikristesiashvili/Desktop/code/Platform/Platform.Domain/obj/Debug/net9.0/refint/Platform.Domain.dll
 /Users/ninikristesiashvili/Desktop/code/Platform/Platform.Domain/obj/Debug/net9.0/Platform.Domain.pdb
 /Users/ninikristesiashvili/Desktop/code/Platform/Platform.Domain/obj/Debug/net9.0/ref/Platform.Domain.dll
+/Users/ninikristesiashvili/Desktop/code/Platform/Platform.Domain/obj/Debug/net9.0/Platform.Domain.sourcelink.json

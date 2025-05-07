@@ -1,20 +1,56 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Platform.Application.DTOs;
+using Platform.Application.Enums;
+using Platform.Application.Models;
+using Platform.Domain.Entities.Models;
 
 [ApiController]
 [Route("[controller]")]
 public class CoursesController : ControllerBase
 {
-    [HttpGet("GetCoursesByAuthorId/{authorId}")]
-    public IActionResult GetCoursesByAuthorId([FromBody] int id)
+    private CourseService _courseService;
+    public CoursesController(CourseService courseService)
     {
-        return Ok();
+        _courseService = courseService;
+    }
+    [HttpGet("GetCoursesByAuthorId/{authorId}")]
+    public async Task<IActionResult> GetCoursesByAuthorId([FromQuery] int id)
+    {
+        CourseResponse result = await _courseService.GetCoursesByAuthor(id);
+        if (result.courses.Count == 0)
+        {
+            return StatusCode(StatusCodes.Status404NotFound);
+        }
+        return Ok(result);
     }
 
     [HttpGet("GetCoursesByStudentId/{StudentId}")]
-    public IActionResult GetCoursesByStudentId([FromBody] int id)
+    public async Task<IActionResult> GetCoursesByStudentId([FromQuery] int id)
     {
-        return Ok();
+        CourseResponse result = await _courseService.GetCoursesByStudent(id);
+        if (result.courses.Count == 0)
+        {
+            return StatusCode(StatusCodes.Status404NotFound);
+        }
+        return Ok(result);
     }
+
+    [HttpPost("AddCourse")]
+    public async Task<IActionResult> AddCourse([FromBody] AddCourseDTO course)
+    {
+        CourseResponse result = await _courseService.AddCourse(course);
+        if (result.result == CourseSearchResultEnum.UserNotFound)
+        {
+            return StatusCode(StatusCodes.Status404NotFound);
+        }
+        if (result.result == CourseSearchResultEnum.UserNotAuthorized)
+        {
+            return StatusCode(StatusCodes.Status401Unauthorized);
+        }
+        return Ok(result);
+    }
+
 
     [HttpGet]
     public IActionResult SearchCourses()
