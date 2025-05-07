@@ -39,9 +39,13 @@ public class CoursesRepository : ICoursesRepository
 
     public async Task<CourseResponse> GetCoursesByStudent(int id)
     {
-        var userFound = await _dbContext.Users.FindAsync(id);
-        // aq amis checki sachiroa?
-        if (userFound == null)
+        List<Course> matchedCourses = [];
+        List<UserCourse> userCourses =
+         await _dbContext.UserCourses
+            .Where(uc => uc.UserId == id)
+            .ToListAsync();
+        // aq null checki sachiroa?
+        if (userCourses == null || userCourses.Count == 0)
         {
             return new CourseResponse
             {
@@ -50,20 +54,53 @@ public class CoursesRepository : ICoursesRepository
             };
         }
 
-        var courseIds = userFound.Courses;
-        List<Course> courses = [];
-
-        foreach (int courseId in courseIds)
+        foreach (UserCourse userCourse in userCourses)
         {
-            var course = await _dbContext.Courses.FindAsync(courseId);
+            var course = await _dbContext.Courses.FindAsync(userCourse.CourseId);
             if (course != null)
             {
-                courses.Add(course);
+                matchedCourses.Add(course);
             }
         }
         return new CourseResponse
         {
-            courses = courses,
+            courses = matchedCourses,
+            result = CourseSearchResultEnum.Success
+        };
+    }
+
+    public async Task<CourseResponse> EnrollInCourse(CourseToEnrollDTO courseToEnroll)
+    {
+        var courseFound = await _dbContext.Courses.FindAsync(courseToEnroll.CourseId);
+
+        if (courseFound == null)
+        {
+            return new CourseResponse
+            {
+                result = CourseSearchResultEnum.NotFound
+            };
+        }
+        var userFound = await _dbContext.Users.FindAsync(courseToEnroll.UserId);
+        if (userFound == null)
+        {
+            return new CourseResponse
+            {
+                result = CourseSearchResultEnum.UserNotFound
+            };
+        }
+
+        await _dbContext.UserCourses.AddAsync(
+            new UserCourse
+            {
+                UserId = courseToEnroll.UserId,
+                CourseId = courseToEnroll.CourseId,
+            }
+        );
+
+        await _dbContext.SaveChangesAsync();
+
+        return new CourseResponse
+        {
             result = CourseSearchResultEnum.Success
         };
     }

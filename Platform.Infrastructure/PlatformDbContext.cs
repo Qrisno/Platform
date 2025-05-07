@@ -9,6 +9,7 @@ public class PlatformDbContext : DbContext
     public DbSet<Auth> AuthUsers { get; set; }
     public DbSet<Course> Courses { get; set; }
     public DbSet<Lesson> Lessons { get; set; }
+    public DbSet<UserCourse> UserCourses { get; set; }
 
     public PlatformDbContext(DbContextOptions<PlatformDbContext> options) : base(options)
     {
