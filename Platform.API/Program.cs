@@ -1,6 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-
-using Platform.Application.Models;
 using Platform.Application.Repos;
 using Platform.Application.Services;
 

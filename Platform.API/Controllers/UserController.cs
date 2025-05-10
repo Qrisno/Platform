@@ -1,9 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Platform.Application.Services;
-using Platform.Domain.Entities;
 using Platform.Domain.Entities.Models;
-using Platform.Infrastructure;
-using System.Threading.Tasks;
 
 namespace Platform.API.Controllers;
 
