@@ -52,9 +52,21 @@ public class CoursesController : ControllerBase
     }
 
 
-    [HttpGet]
+    [HttpGet("Search")]
     public IActionResult SearchCourses()
     {
         return Ok();
+    }
+
+    [HttpPost("Enroll")]
+    public async Task<IActionResult> Enroll(CourseToEnrollDTO course)
+    {
+        CourseResponse result = await _courseService.Enroll(course);
+        if (result.result == CourseSearchResultEnum.UserNotFound || result.result == CourseSearchResultEnum.NotFound)
+        {
+            return StatusCode(StatusCodes.Status404NotFound);
+        }
+
+        return Ok(result);
     }
 }

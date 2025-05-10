@@ -25,4 +25,9 @@ public class CourseService
     {
         return await _repo.AddCourse(course);
     }
+
+    public async Task<CourseResponse> Enroll(CourseToEnrollDTO course)
+    {
+        return await _repo.EnrollInCourse(course);
+    }
 }

@@ -9,4 +9,5 @@ public interface ICoursesRepository
 
     Task<CourseResponse> GetCoursesByStudent(int id);
     Task<CourseResponse> AddCourse(AddCourseDTO course);
+    Task<CourseResponse> EnrollInCourse(CourseToEnrollDTO course);
 }
