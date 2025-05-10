@@ -1,4 +1,3 @@
-using System.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
 using Platform.Application.DTOs;
 using Platform.Application.Enums;
@@ -6,6 +5,7 @@ using Platform.Application.Models;
 using Platform.Application.Repos;
 using Platform.Domain.Entities.Models;
 using Platform.Infrastructure.Helpers;
+using System.Security.Cryptography;
 namespace Platform.Infrastructure;
 
 public class AuthRepository : IAuthRepository

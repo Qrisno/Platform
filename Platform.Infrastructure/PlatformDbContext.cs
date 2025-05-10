@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+
 using Platform.Domain.Entities.Models;
 
 namespace Platform.Infrastructure;

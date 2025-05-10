@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+
 using Platform.Application.Models;
 using Platform.Application.Repos;
 using Platform.Application.Services;
@@ -39,4 +40,3 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.MapControllers();
 app.Run();
-

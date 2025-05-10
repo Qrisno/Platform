@@ -1,9 +1,9 @@
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Platform.Application.DTOs;
 using Platform.Application.Enums;
 using Platform.Application.Models;
 using Platform.Domain.Entities.Models;
+using System.Threading.Tasks;
 
 [ApiController]
 [Route("[controller]")]

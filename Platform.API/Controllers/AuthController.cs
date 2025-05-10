@@ -1,10 +1,10 @@
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Platform.Application.DTOs;
 using Platform.Application.Enums;
 using Platform.Application.Models;
 using Platform.Application.Repos;
 using Platform.Application.Services;
+using System.Threading.Tasks;
 
 namespace Platform.API.Controllers
 {
