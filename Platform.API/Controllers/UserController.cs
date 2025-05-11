@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Platform.Application.Services;
 using Platform.Domain.Entities.Models;
 
 namespace Platform.API.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/Users")]
 public class UserController : ControllerBase

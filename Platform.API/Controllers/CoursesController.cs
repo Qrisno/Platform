@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Platform.Application.DTOs;
 using Platform.Application.Enums;
 using Platform.Application.Models;
 
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class CoursesController : ControllerBase
@@ -50,6 +52,7 @@ public class CoursesController : ControllerBase
     }
 
 
+    [AllowAnonymous]
     [HttpGet("Search")]
     public IActionResult SearchCourses()
     {

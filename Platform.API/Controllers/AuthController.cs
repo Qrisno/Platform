@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Platform.Application.DTOs;
 using Platform.Application.Enums;
@@ -6,6 +7,7 @@ using Platform.Application.Services;
 
 namespace Platform.API.Controllers
 {
+    [AllowAnonymous]
     [ApiController]
     [Route("[controller]")]
     public class AuthController : Controller
