@@ -6,9 +6,10 @@ namespace Platform.Infrastructure;
 
 public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<PlatformDbContext>
 {
-    //es rato damchirchda sruliad gaugebaria
+    //es rato damchirchda sruliad gaugebaria ver mivxvdi
     public PlatformDbContext CreateDbContext(string[] args)
     {
+
         // Get the directory where the command is being executed
         var basePath = Directory.GetCurrentDirectory();
 
