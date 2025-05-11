@@ -1,0 +1,22 @@
+echo "✨ 🐑 Running Sheep pre-commit hook"
+
+
+echo "🎨 Formatting Sheep Code"
+dotnet format
+
+if [$? -ne 0]; then
+    echo "❌ Formatting failed. Please fix the issues and try again."
+    exit 1
+fi
+echo "✅ Formatting completed successfully."
+echo "🧪 Running Tests"
+
+dotnet test --no-build --verbosity normal
+if [$? -ne 0]; then
+    echo "❌ Tests failed. Please fix the issues and try again."
+    exit 1
+fi
+echo "✅ Tests completed successfully."
+echo "🐑 Sheep pre-commit hook completed successfully."
+
+
