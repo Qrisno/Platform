@@ -1,8 +1,8 @@
-namespace Platform.Application.DTOs;
-
-
-public class LoginDTO
+namespace Platform.Application.DTOs
 {
-    public string Email { get; set; } = string.Empty;
-    public string Password { get; set; } = string.Empty;
+    public class LoginDTO
+    {
+        public string Email { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+    }
 }

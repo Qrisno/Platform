@@ -2,31 +2,31 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
-namespace Platform.Infrastructure;
-
-public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<PlatformDbContext>
+namespace Platform.Infrastructure
 {
-    //es rato damchirchda sruliad gaugebaria ver mivxvdi
-    public PlatformDbContext CreateDbContext(string[] args)
+    public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<PlatformDbContext>
     {
+        //es rato damchirchda sruliad gaugebaria ver mivxvdi
+        public PlatformDbContext CreateDbContext(string[] args)
+        {
+            // Get the directory where the command is being executed
+            string basePath = Directory.GetCurrentDirectory();
 
-        // Get the directory where the command is being executed
-        var basePath = Directory.GetCurrentDirectory();
+            // Navigate to the API project where appsettings.json is located
+            string apiProjectPath = Path.Combine(basePath, "..", "Platform.API");
 
-        // Navigate to the API project where appsettings.json is located
-        var apiProjectPath = Path.Combine(basePath, "..", "Platform.API");
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+                .SetBasePath(apiProjectPath)
+                .AddJsonFile("appsettings.json", false)
+                .AddJsonFile("appsettings.Development.json", true)
+                .Build();
 
-        var configuration = new ConfigurationBuilder()
-            .SetBasePath(apiProjectPath)
-            .AddJsonFile("appsettings.json", optional: false)
-            .AddJsonFile("appsettings.Development.json", optional: true)
-            .Build();
+            DbContextOptionsBuilder<PlatformDbContext> optionsBuilder = new();
+            string? connectionString = configuration.GetConnectionString("DefaultConnection");
 
-        var optionsBuilder = new DbContextOptionsBuilder<PlatformDbContext>();
-        var connectionString = configuration.GetConnectionString("DefaultConnection");
+            optionsBuilder.UseSqlServer(connectionString);
 
-        optionsBuilder.UseSqlServer(connectionString);
-
-        return new PlatformDbContext(optionsBuilder.Options);
+            return new PlatformDbContext(optionsBuilder.Options);
+        }
     }
 }

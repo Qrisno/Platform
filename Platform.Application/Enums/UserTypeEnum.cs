@@ -1,7 +1,9 @@
-namespace Platform.Application.Enums;
-public enum UserTypeEnum
+namespace Platform.Application.Enums
 {
-    Student,
-    Teacher,
-    Admin
+    public enum UserTypeEnum
+    {
+        Student,
+        Teacher,
+        Admin
+    }
 }

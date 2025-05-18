@@ -6,11 +6,13 @@ using Platform.Application.Repos;
 
 public class CourseService
 {
-    private ICoursesRepository _repo;
+    private readonly ICoursesRepository _repo;
+
     public CourseService(ICoursesRepository repo)
     {
         _repo = repo;
     }
+
     public async Task<CourseResponse> GetCoursesByAuthor(int id)
     {
         return await _repo.GetCoursesByAuthor(id);

@@ -6,79 +6,67 @@ using Platform.Application.Repos;
 using Platform.Application.Services;
 using Platform.Domain.Entities.Models;
 
-namespace Platform.Application.Tests;
-[Trait("Category", "Authorization Service Logic")]
-public class AuthServiceTest
+namespace Platform.Application.Tests
 {
-    private readonly AuthService _authService;
-    private readonly Mock<IAuthRepository> _repoMock;
-
-
-    public AuthServiceTest()
+    [Trait("Category", "Authorization Service Logic")]
+    public class AuthServiceTest
     {
-        _repoMock = new Mock<IAuthRepository>();
+        private readonly AuthService _authService;
+        private readonly Mock<IAuthRepository> _repoMock;
 
-        _authService = new AuthService(_repoMock.Object);
-    }
 
-    // Am casebis arsebobas ra azri aqvs mainc vmockav yvelafers
-    [Fact]
-    public async Task Login_GivenCorrectCredentials_ReturnsToken()
-    {
-        var loginData = new LoginDTO
+        public AuthServiceTest()
         {
-            Email = "test@example.com",
-            Password = "password123"
-        };
-        var expectedLoginResponse = new LoginResponse { Token = "sampleToken123" };
+            _repoMock = new Mock<IAuthRepository>();
 
-        _repoMock.Setup(repo => repo.LoginAsync((It.IsAny<LoginDTO>()))).ReturnsAsync((expectedLoginResponse));
-        var loginResponse = await _authService.Login(loginData);
-        Assert.Equal(expectedLoginResponse.Token, loginResponse.Token);
-        _repoMock.Verify(repo => repo.LoginAsync(It.IsAny<LoginDTO>()), Times.Once());
-    }
+            _authService = new AuthService(_repoMock.Object);
+        }
 
-    [Fact]
-    public async Task Login_GivenIncorrectCredentials_ReturnsNull()
-    {
-        var loginData = new LoginDTO
+        // Am casebis arsebobas ra azri aqvs mainc vmockav yvelafers
+        [Fact]
+        public async Task Login_GivenCorrectCredentials_ReturnsToken()
         {
-            Email = "incorrect@example.com",
-            Password = "password123"
-        };
-        var expectedLoginResponse = new LoginResponse { Token = null };
+            LoginDTO loginData = new() { Email = "test@example.com", Password = "password123" };
+            LoginResponse expectedLoginResponse = new() { Token = "sampleToken123" };
 
-        _repoMock.Setup(repo => repo.LoginAsync(It.IsAny<LoginDTO>())).ReturnsAsync(expectedLoginResponse);
-        var result = await _authService.Login(loginData);
-        Assert.Null(result.Token);
-    }
+            _repoMock.Setup(repo => repo.LoginAsync(It.IsAny<LoginDTO>())).ReturnsAsync(expectedLoginResponse);
+            LoginResponse loginResponse = await _authService.Login(loginData);
+            Assert.Equal(expectedLoginResponse.Token, loginResponse.Token);
+            _repoMock.Verify(repo => repo.LoginAsync(It.IsAny<LoginDTO>()), Times.Once());
+        }
 
-    [Fact]
-    public async Task Register_GivenValidUserData_ReturnsOk()
-    {
-        var userData = new UserToRegisterDTO
+        [Fact]
+        public async Task Login_GivenIncorrectCredentials_ReturnsNull()
         {
-            UserType = 1,
-            FirstName = "Test",
-            LastName = "User",
-            Email = "test@example.com",
-            Password = "password123"
-        };
-        var expectedRegistrationResponse = new RegistrationResponse
+            LoginDTO loginData = new() { Email = "incorrect@example.com", Password = "password123" };
+            LoginResponse expectedLoginResponse = new() { Token = null };
+
+            _repoMock.Setup(repo => repo.LoginAsync(It.IsAny<LoginDTO>())).ReturnsAsync(expectedLoginResponse);
+            LoginResponse result = await _authService.Login(loginData);
+            Assert.Null(result.Token);
+        }
+
+        [Fact]
+        public async Task Register_GivenValidUserData_ReturnsOk()
         {
-            AuthStatus = AuthStatusEnum.Success,
-            User = new User
+            UserToRegisterDTO userData = new()
             {
                 UserType = 1,
                 FirstName = "Test",
                 LastName = "User",
-                Email = "test@example.com"
-            }
-        };
-        _repoMock.Setup(repo => repo.RegisterAsync(It.IsAny<UserToRegisterDTO>())).ReturnsAsync(expectedRegistrationResponse);
-        var res = await _authService.Register(userData);
+                Email = "test@example.com",
+                Password = "password123"
+            };
+            RegistrationResponse expectedRegistrationResponse = new()
+            {
+                AuthStatus = AuthStatusEnum.Success,
+                User = new User { UserType = 1, FirstName = "Test", LastName = "User", Email = "test@example.com" }
+            };
+            _repoMock.Setup(repo => repo.RegisterAsync(It.IsAny<UserToRegisterDTO>()))
+                .ReturnsAsync(expectedRegistrationResponse);
+            RegistrationResponse res = await _authService.Register(userData);
 
-        Assert.Equal(expectedRegistrationResponse, res);
+            Assert.Equal(expectedRegistrationResponse, res);
+        }
     }
-
 }

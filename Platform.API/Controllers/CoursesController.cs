@@ -9,11 +9,13 @@ using Platform.Application.Models;
 [Route("[controller]")]
 public class CoursesController : ControllerBase
 {
-    private CourseService _courseService;
+    private readonly CourseService _courseService;
+
     public CoursesController(CourseService courseService)
     {
         _courseService = courseService;
     }
+
     [HttpGet("GetCoursesByAuthorId/{authorId}")]
     public async Task<IActionResult> GetCoursesByAuthorId([FromQuery] int id)
     {
@@ -22,6 +24,7 @@ public class CoursesController : ControllerBase
         {
             return StatusCode(StatusCodes.Status404NotFound);
         }
+
         return Ok(result);
     }
 
@@ -33,6 +36,7 @@ public class CoursesController : ControllerBase
         {
             return StatusCode(StatusCodes.Status404NotFound);
         }
+
         return Ok(result);
     }
 
@@ -44,10 +48,12 @@ public class CoursesController : ControllerBase
         {
             return StatusCode(StatusCodes.Status404NotFound);
         }
+
         if (result.result == CourseSearchResultEnum.UserNotAuthorized)
         {
             return StatusCode(StatusCodes.Status401Unauthorized);
         }
+
         return Ok(result);
     }
 

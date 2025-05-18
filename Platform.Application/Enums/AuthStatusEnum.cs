@@ -1,9 +1,11 @@
-namespace Platform.Application.Enums;
-public enum AuthStatusEnum
+namespace Platform.Application.Enums
 {
-    Success,
-    Fail,
-    NotFound,
-    AlreadyExists,
-    InvalidCredentials
+    public enum AuthStatusEnum
+    {
+        Success,
+        Fail,
+        NotFound,
+        AlreadyExists,
+        InvalidCredentials
+    }
 }

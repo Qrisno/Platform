@@ -1,8 +1,10 @@
-namespace Platform.Application.Enums;
-public enum CourseSearchResultEnum
+namespace Platform.Application.Enums
 {
-    UserNotFound,
-    UserNotAuthorized,
-    Success,
-    NotFound
+    public enum CourseSearchResultEnum
+    {
+        UserNotFound,
+        UserNotAuthorized,
+        Success,
+        NotFound
+    }
 }

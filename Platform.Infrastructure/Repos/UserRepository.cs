@@ -1,46 +1,41 @@
 using Platform.Application.Repos;
 using Platform.Domain.Entities.Models;
+using Platform.Infrastructure.Interfaces;
 
-namespace Platform.Infrastructure;
-
-public class UserRepository : IUserRepository
+namespace Platform.Infrastructure
 {
-
-    private readonly PlatformDbContext _dbContext;
-
-    public UserRepository(PlatformDbContext dbContext)
+    public class UserRepository(IPlatformDbContext dbContext) : IUserRepository
     {
-        _dbContext = dbContext;
-    }
-    public async Task<User?> GetUserByIdAsync(int id)
-    {
-        return await _dbContext.Users.FindAsync(id);
-    }
-
-    public async Task<bool> DeleteUserAsync(int id)
-    {
-        var user = await GetUserByIdAsync(id);
-
-        if (user == null)
+        public async Task<User> GetUserByIdAsync(int id)
         {
-            return false;
+            return await dbContext.Users.FindAsync(id);
         }
-        _dbContext.Users.Remove(user);
-        await _dbContext.SaveChangesAsync();
-        return true;
-    }
 
-    public async Task<User?> UpdateUserAsync(User user)
-    {
-        var userToUpdate = await GetUserByIdAsync(user.UserId);
-        if (userToUpdate == null)
+        public async Task<bool> DeleteUserAsync(int id)
         {
-            return null;
+            User? user = await GetUserByIdAsync(id);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            dbContext.Users.Remove(user);
+            await dbContext.SaveChangesAsync();
+            return true;
         }
-        _dbContext.Users.Update(userToUpdate);
-        await _dbContext.SaveChangesAsync();
-        return userToUpdate;
+
+        public async Task<User?> UpdateUserAsync(User user)
+        {
+            User? userToUpdate = await GetUserByIdAsync(user.UserId);
+            if (userToUpdate == null)
+            {
+                return null;
+            }
+
+            dbContext.Users.Update(user);
+            await dbContext.SaveChangesAsync();
+            return user;
+        }
     }
-
-
 }

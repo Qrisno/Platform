@@ -1,8 +1,3 @@
-
-
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace Platform.Domain.Entities.Models
 {
     public class UserCourse
@@ -13,6 +8,5 @@ namespace Platform.Domain.Entities.Models
         public int CourseId { get; set; }
         public DateTime EnrolledAt { get; set; } = DateTime.UtcNow;
         public string? Progress { get; set; }
-
     }
 }

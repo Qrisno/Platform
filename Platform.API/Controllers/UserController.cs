@@ -3,39 +3,44 @@ using Microsoft.AspNetCore.Mvc;
 using Platform.Application.Services;
 using Platform.Domain.Entities.Models;
 
-namespace Platform.API.Controllers;
-
-[Authorize]
-[ApiController]
-[Route("api/Users")]
-public class UserController : ControllerBase
+namespace Platform.API.Controllers
 {
-    private readonly UserService _userService;
-    public UserController(UserService userService)
+    [Authorize]
+    [ApiController]
+    [Route("api/Users")]
+    public class UserController : ControllerBase
     {
-        _userService = userService;
-    }
-    [HttpGet("Get")]
-    public async Task<IActionResult> GetUser([FromQuery] int id)
-    {
-        var userFound = await _userService.GetUser(id);
+        private readonly UserService _userService;
 
-        if (userFound == null)
+        public UserController(UserService userService)
         {
-            return StatusCode(StatusCodes.Status404NotFound);
+            _userService = userService;
         }
-        return Ok(userFound);
-    }
 
-    [HttpGet("Update")]
-    public async Task<IActionResult> GetUser([FromBody] User user)
-    {
-        var userFound = await _userService.UpdateUser(user);
-
-        if (userFound == null)
+        [HttpGet("Get")]
+        public async Task<IActionResult> GetUser([FromQuery] int id)
         {
-            return StatusCode(StatusCodes.Status404NotFound);
+            User? userFound = await _userService.GetUser(id);
+
+            if (userFound == null)
+            {
+                return StatusCode(StatusCodes.Status404NotFound);
+            }
+
+            return Ok(userFound);
         }
-        return Ok(userFound);
+
+        [HttpGet("Update")]
+        public async Task<IActionResult> GetUser([FromBody] User user)
+        {
+            User? userFound = await _userService.UpdateUser(user);
+
+            if (userFound == null)
+            {
+                return StatusCode(StatusCodes.Status404NotFound);
+            }
+
+            return Ok(userFound);
+        }
     }
 }

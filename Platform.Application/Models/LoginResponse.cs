@@ -1,6 +1,7 @@
-namespace Platform.Application.Models;
-
-public class LoginResponse : AuthResponse
+namespace Platform.Application.Models
 {
-    public string? Token { get; set; }
+    public class LoginResponse : AuthResponse
+    {
+        public string? Token { get; set; }
+    }
 }

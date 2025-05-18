@@ -1,12 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Platform.Application.Repos;
 using Platform.Application.Services;
-
 using Platform.Infrastructure;
 using Platform.Infrastructure.Helpers;
+using Platform.Infrastructure.Interfaces;
 using Platform.Infrastructure.Repos;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -21,11 +21,12 @@ builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<CourseService>();
 builder.Services.AddScoped<AuthHelper>();
+builder.Services.AddScoped<IPlatformDbContext, PlatformDbContext>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<ICoursesRepository, CoursesRepository>();
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -1,10 +1,10 @@
-
 using Platform.Application.Enums;
 
-namespace Platform.Application.Models;
-
-public class AuthResponse
+namespace Platform.Application.Models
 {
-    public AuthStatusEnum AuthStatus { get; set; }
-    public string? ReasonText { get; set; }
+    public class AuthResponse
+    {
+        public AuthStatusEnum AuthStatus { get; set; }
+        public string? ReasonText { get; set; }
+    }
 }

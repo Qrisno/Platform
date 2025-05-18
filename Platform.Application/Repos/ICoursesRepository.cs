@@ -1,13 +1,14 @@
 using Platform.Application.DTOs;
 using Platform.Application.Models;
 
-namespace Platform.Application.Repos;
-
-public interface ICoursesRepository
+namespace Platform.Application.Repos
 {
-    Task<CourseResponse> GetCoursesByAuthor(int id);
+    public interface ICoursesRepository
+    {
+        Task<CourseResponse> GetCoursesByAuthor(int id);
 
-    Task<CourseResponse> GetCoursesByStudent(int id);
-    Task<CourseResponse> AddCourse(AddCourseDTO course);
-    Task<CourseResponse> EnrollInCourse(CourseToEnrollDTO course);
+        Task<CourseResponse> GetCoursesByStudent(int id);
+        Task<CourseResponse> AddCourse(AddCourseDTO course);
+        Task<CourseResponse> EnrollInCourse(CourseToEnrollDTO course);
+    }
 }

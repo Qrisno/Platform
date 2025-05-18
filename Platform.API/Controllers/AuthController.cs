@@ -31,7 +31,6 @@ namespace Platform.API.Controllers
             if (loginResult.AuthStatus == AuthStatusEnum.Success)
             {
                 return Ok(loginResult);
-
             }
 
             if (loginResult.AuthStatus == AuthStatusEnum.InvalidCredentials)
@@ -40,7 +39,6 @@ namespace Platform.API.Controllers
             }
 
             return StatusCode(StatusCodes.Status500InternalServerError);
-
         }
 
         [HttpPost("regsiter")]
