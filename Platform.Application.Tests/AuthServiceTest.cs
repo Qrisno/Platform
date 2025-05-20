@@ -43,6 +43,8 @@ namespace Platform.Application.Tests
 
             _repoMock.Setup(repo => repo.LoginAsync(It.IsAny<LoginDTO>())).ReturnsAsync(expectedLoginResponse);
             LoginResponse result = await _authService.Login(loginData);
+            _repoMock.Verify(repo=> repo.LoginAsync(It.IsAny<LoginDTO>()), Times.AtLeastOnce);
+            
             Assert.Null(result.Token);
         }
 

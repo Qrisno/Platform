@@ -149,7 +149,7 @@ namespace Platform.Infrastructure.Tests
             Assert.Empty(courseResponse.courses);
             Assert.Equal(CourseSearchResultEnum.NotFound, courseResponse.result);
         }
-        
+
         [Fact]
         public async Task EnrollInCourse_GivenNonExistingCourse_ReturnsSuccess()
         {
@@ -160,10 +160,10 @@ namespace Platform.Infrastructure.Tests
                 UserId = 1
             };
             CourseResponse courseResponse = await _coursesRepo.EnrollInCourse(courseToEnroll);
-            
-            Assert.Equal(CourseSearchResultEnum.NotFound,courseResponse.result );
+
+            Assert.Equal(CourseSearchResultEnum.NotFound, courseResponse.result);
         }
-        
+
         [Fact]
         public async Task EnrollInCourse_GivenNonExistingUserExistingCourse_ReturnsSuccess()
         {
@@ -174,8 +174,8 @@ namespace Platform.Infrastructure.Tests
                 UserId = 123123
             };
             CourseResponse courseResponse = await _coursesRepo.EnrollInCourse(courseToEnroll);
-            
-            Assert.Equal(CourseSearchResultEnum.UserNotFound,courseResponse.result );
+
+            Assert.Equal(CourseSearchResultEnum.UserNotFound, courseResponse.result);
         }
 
     }
