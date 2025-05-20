@@ -37,13 +37,16 @@ namespace Platform.Infrastructure
 
                 return new LoginResponse
                 {
-                    AuthStatus = AuthStatusEnum.Success, ReasonText = "User Authorized", Token = token
+                    AuthStatus = AuthStatusEnum.Success,
+                    ReasonText = "User Authorized",
+                    Token = token
                 };
             }
 
             return new LoginResponse
             {
-                AuthStatus = AuthStatusEnum.InvalidCredentials, ReasonText = "Provided credentials are invalid"
+                AuthStatus = AuthStatusEnum.InvalidCredentials,
+                ReasonText = "Provided credentials are invalid"
             };
         }
 
@@ -65,7 +68,10 @@ namespace Platform.Infrastructure
 
             User userToRegister = new()
             {
-                Email = user.Email, FirstName = user.FirstName, LastName = user.LastName, UserType = user.UserType
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                UserType = user.UserType
             };
             await _dbContext.AuthUsers.AddAsync(authUser);
             await _dbContext.Users.AddAsync(userToRegister);
@@ -73,7 +79,9 @@ namespace Platform.Infrastructure
             User? AddedUser = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
             return new RegistrationResponse
             {
-                AuthStatus = AuthStatusEnum.Success, ReasonText = "User Registered Successfully", User = AddedUser
+                AuthStatus = AuthStatusEnum.Success,
+                ReasonText = "User Registered Successfully",
+                User = AddedUser
             };
         }
     }

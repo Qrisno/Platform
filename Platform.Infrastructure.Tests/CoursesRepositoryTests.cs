@@ -72,7 +72,53 @@ namespace Platform.Infrastructure.Tests
             mockCoursesSet.Setup(m => m.FindAsync(It.IsAny<object[]>()))
                 .Returns((object[] ids) =>
                     ValueTask.FromResult(courses.FirstOrDefault(c => c.CourseId == (int)ids[0])));
+            Mock<DbSet<User>> mockSet = new();
+
+            List<User> users = new()
+            {
+                new User
+                {
+                    UserId = 1,
+                    UserType = 1,
+                    FirstName = "John",
+                    LastName = "Doe",
+                    Email = "john.doe@example.com",
+                    Courses = [101, 102, 103]
+                },
+                new User
+                {
+                    UserId = 2,
+                    UserType = 2,
+                    FirstName = "Jane",
+                    LastName = "Smith",
+                    Email = "jane.smith@example.com",
+                    Courses = [201, 202]
+                },
+                new User
+                {
+                    UserId = 3,
+                    UserType = 1,
+                    FirstName = "Bob",
+                    LastName = "Johnson",
+                    Email = "bob.johnson@example.com",
+                    Courses = [101, 103]
+                }
+            };
+
+            IQueryable<User> queryableUsers = users.AsQueryable();
+
+            // Setup the mock DbSet
+            mockSet.As<IQueryable<User>>().Setup(m => m.Provider).Returns(queryableUsers.Provider);
+            mockSet.As<IQueryable<User>>().Setup(m => m.Expression).Returns(queryableUsers.Expression);
+            mockSet.As<IQueryable<User>>().Setup(m => m.ElementType).Returns(queryableUsers.ElementType);
+            mockSet.As<IQueryable<User>>().Setup(m => m.GetEnumerator()).Returns(() => queryableUsers.GetEnumerator());
+
+            // Setup Find method
+            mockSet.Setup(m => m.FindAsync(It.IsAny<object[]>()))
+                .Returns((object[] ids) => ValueTask.FromResult(
+                    users.FirstOrDefault(u => u.UserId == (int)ids[0])));
             dbContext.Setup(db => db.Courses).Returns(mockCoursesSet.Object);
+            dbContext.Setup(db => db.Users).Returns(mockSet.Object);
             _coursesRepo = new CoursesRepository(dbContext.Object);
         }
 
@@ -90,7 +136,7 @@ namespace Platform.Infrastructure.Tests
             Assert.Equal(expectedAuthorId, courseResponse.courses[0].AuthorUserId);
             Assert.Equal(CourseSearchResultEnum.Success, courseResponse.result);
         }
-        
+
         [Fact]
         public async Task GetCoursesByAuthor_GivenNonExistingAuthorId_ReturnsEmptyCoursesResponse()
         {
@@ -103,7 +149,34 @@ namespace Platform.Infrastructure.Tests
             Assert.Empty(courseResponse.courses);
             Assert.Equal(CourseSearchResultEnum.NotFound, courseResponse.result);
         }
+        
+        [Fact]
+        public async Task EnrollInCourse_GivenNonExistingCourse_ReturnsSuccess()
+        {
+            // Arrange
+            CourseToEnrollDTO courseToEnroll = new()
+            {
+                CourseId = 999,
+                UserId = 1
+            };
+            CourseResponse courseResponse = await _coursesRepo.EnrollInCourse(courseToEnroll);
+            
+            Assert.Equal(CourseSearchResultEnum.NotFound,courseResponse.result );
+        }
+        
+        [Fact]
+        public async Task EnrollInCourse_GivenNonExistingUserExistingCourse_ReturnsSuccess()
+        {
+            // Arrange
+            CourseToEnrollDTO courseToEnroll = new()
+            {
+                CourseId = 101,
+                UserId = 123123
+            };
+            CourseResponse courseResponse = await _coursesRepo.EnrollInCourse(courseToEnroll);
+            
+            Assert.Equal(CourseSearchResultEnum.UserNotFound,courseResponse.result );
+        }
 
     }
 }
-
