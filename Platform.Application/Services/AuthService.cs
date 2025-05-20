@@ -4,7 +4,7 @@ using Platform.Application.Repos;
 
 namespace Platform.Application.Services
 {
-    public class AuthService
+    public class AuthService: IAuthService
     {
         private readonly IAuthRepository _repo;
 

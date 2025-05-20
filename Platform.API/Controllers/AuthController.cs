@@ -12,9 +12,9 @@ namespace Platform.API.Controllers
     [Route("[controller]")]
     public class AuthController : Controller
     {
-        private readonly AuthService _authService;
+        private readonly IAuthService _authService;
 
-        public AuthController(AuthService authService)
+        public AuthController(IAuthService authService)
         {
             _authService = authService;
         }
@@ -41,7 +41,7 @@ namespace Platform.API.Controllers
             return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
-        [HttpPost("regsiter")]
+        [HttpPost("register")]
         public async Task<IActionResult> Register(UserToRegisterDTO user)
         {
             RegistrationResponse registrationResult = await _authService.Register(user);

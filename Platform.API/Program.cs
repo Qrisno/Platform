@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Platform.Application.Models;
 using Platform.Application.Repos;
 using Platform.Application.Services;
 using Platform.Infrastructure;
@@ -18,7 +19,7 @@ builder.Services.AddDbContext<PlatformDbContext>(optionsBuilder =>
     optionsBuilder.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.AddScoped<UserService>();
-builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<IAuthService,AuthService>();
 builder.Services.AddScoped<CourseService>();
 builder.Services.AddScoped<AuthHelper>();
 builder.Services.AddScoped<IPlatformDbContext, PlatformDbContext>();

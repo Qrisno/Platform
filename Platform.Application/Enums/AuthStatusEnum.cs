@@ -2,7 +2,7 @@ namespace Platform.Application.Enums
 {
     public enum AuthStatusEnum
     {
-        Success,
+        Success = 1,
         Fail,
         NotFound,
         AlreadyExists,
